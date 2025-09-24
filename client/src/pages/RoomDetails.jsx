@@ -55,9 +55,8 @@ const RoomDetails = () => {
                   key={index}
                   src={image}
                   alt="Room Image"
-                  className={`w-full rounded-xl shadow-md object-cover cursor-pointer ${
-                    mainImage === image && "outline-3 outline-orange-500"
-                  }`}
+                  className={`w-full rounded-xl shadow-md object-cover cursor-pointer ${mainImage === image && "outline-3 outline-orange-500"
+                    }`}
                 />
               ))}
           </div>
@@ -116,7 +115,7 @@ const RoomDetails = () => {
               <label htmlFor="guests" className="font-medium">
                 Guests
               </label>
-              <input
+              <input min={0} max={4}
                 type="number"
                 id="guests"
                 placeholder="0"
