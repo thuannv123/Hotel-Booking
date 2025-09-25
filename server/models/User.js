@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+mongoose.set("debug", true);
 const userSchema = mongoose.Schema({
     _id: { type: String, required: true },
     username: { type: String, required: true },
