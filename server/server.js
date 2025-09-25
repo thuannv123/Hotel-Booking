@@ -2,32 +2,21 @@ import express from "express";
 import "dotenv/config";
 import cors from "cors";
 import connectDB from "./configs/db.js";
-import { clerkMiddleware } from "@clerk/express";
+import { clerkMiddleware } from '@clerk/express'
 import clerkWebhooks from "./controllers/clerkWebhooks.js";
 
-const app = express();
+connectDB()
 
-// 1) Route webhook: PHẢI đứng TRƯỚC express.json() và dùng raw body
-app.post(
-    "/api/clerk/webhook",
-    express.raw({ type: "application/json" }),
-    clerkWebhooks
-);
+const app = express()
+app.use(cors())
 
-app.use(cors());
-app.use(express.json());
+app.use(express.json())
+app.use(clerkMiddleware())
 
-app.use("/api/clerk", clerkMiddleware());
+//API to listen to Clerk Webhook
+app.use("/api/clerk", clerkWebhooks);
 
-app.get("/", (req, res) => res.send("API is working"));
+app.get('/', (reg, res) => res.send("API is working"))
 
 const PORT = process.env.PORT || 3000;
-(async () => {
-    try {
-        await connectDB();
-        app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-    } catch (err) {
-        console.error("Failed to start server:", err);
-        process.exit(1);
-    }
-})();
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
