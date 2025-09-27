@@ -7,8 +7,9 @@ import { populate } from "dotenv";
 export const CreateRooms = async (req, res) => {
     try {
         const { roomType, pricePerNight, amenities } = req.body;
-        const hotel = await Hotel.findOne({ owner: req.auth.userID });
+        const hotel = await Hotel.findOne({ owner: req.auth.userId });
         if (!hotel) return res.json({ success: false, message: "No Hotel Found" });
+
         const uploadImages = req.files.map(async (file) => {
             const response = await cloudinary.uploader.upload(file.path
 
@@ -48,9 +49,9 @@ export const getRooms = async (req, res) => {
         res.json({ success: false, message: error.message })
     }
 }
-export const getOnweRooms = async (req, res) => {
+export const getOnwerRooms = async (req, res) => {
     try {
-        const hotelData = await Hotel({ owner: req.auth.userId })
+        const hotelData = await Hotel.findOne({ owner: req.auth.userId })
         const rooms = await Room.find({
             hotel: hotelData._id.toString()
         }).populate("hotel");
