@@ -4,18 +4,19 @@ import FeatureDestination from "../components/FeatureDestination";
 import ExclusiveOffer from "../components/ExclusiveOffer";
 import Testimonial from "../components/Testimonial";
 import NewsLetter from "../components/NewsLetter";
+import RecommendedHotels from "../components/RecommendedHotels";
 
 const Home = () => {
-
-    return (
-        <>
-            <Hero />
-            <FeatureDestination />
-            <ExclusiveOffer />
-            <Testimonial />
-            <NewsLetter />
-        </>
-    )
-}
+  return (
+    <>
+      <Hero />
+      <RecommendedHotels />
+      <FeatureDestination />
+      <ExclusiveOffer />
+      <Testimonial />
+      <NewsLetter />
+    </>
+  );
+};
 
 export default Home;
